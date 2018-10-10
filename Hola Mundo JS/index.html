@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<!-- Codigo JS -->
+<script type="text/javascript">
+    window.onload = function (){
+        construyeTeclado();
+    }
+    construyeTeclado = () => {
+        let salida = "";
+        for (let i=65; i <= 90;i++){
+            let letra = String.fromCharCode(i);
+            salida += `<span class="key" value="${letra}" onclick="addLetra(this)">${letra}</span>`;
+        }
+        salida += `<span class="key" style="max-width:none!important" onclick="removeLast()">borrar</span>
+                    <span class="key" style="max-width:none!important" onclick="addSpace()">espacio</span>`
+        document.querySelector('.teclado').insertAdjacentHTML('beforeend', salida);
+    }
+    addLetra = (element) => {
+        let letra = element.getAttribute('value');
+        let pantalla = document.querySelector('.pantalla');
+        pantalla.insertAdjacentHTML('beforeend', letra)
+    }
+    removeLast = () =>{
+        let pantalla = document.querySelector('.pantalla');
+        let str = pantalla.innerHTML.substring(0, pantalla.innerHTML.length-1)
+        pantalla.innerHTML = str;
+    }
+    addSpace = () =>{
+        document.querySelector('.pantalla').insertAdjacentHTML('beforeend', " ")
+    }
+
+</script>
+<!-- CSS -->
+<style type="text/css"> 
+    .pantalla{
+        max-width:50%;
+        min-height: 200px;
+        border:1px solid black;
+        bottom: 100px;
+        margin:auto;
+    }
+    .teclado{
+        width:80%;
+        max-width:650px;
+        bottom: 100px;
+        text-align: center;
+        margin:auto;
+    }
+    .key{
+        display: inline-block;
+        max-width:10px;
+        padding:20px;
+        background-color:gray;
+        border:1px solid black;
+        margin:10px;
+    }
+    .key:hover{
+        cursor:pointer;
+    }
+</style>
+</head>
+<!-- Cuerpo -->
+<body>
+    <div class="contenedor">
+        <div class="pantalla"></div>
+        <div class="teclado">
+        </div>
+    </div>
+</body>
+</html>
